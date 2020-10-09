@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi {{ user.first_name }} {{ user.last_name }},
+Thank you for registering to work with Vamux.
+Your login username is: {{user.username}}
+To complete your registration, please click the following link to verify your email:
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %} 

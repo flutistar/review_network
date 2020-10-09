@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="newblis">
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                {% with self.get_site.site_name as site_name %}
+                    {% if site_name %}- {{ site_name }}{% endif %}
+                {% endwith %}
+            {% endblock %}
+        </title>
+
+        {# Global stylesheets #}
+        <!-- Favicon and Touch Icons -->
+        <link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/png">
+        <link href="{% static 'images/apple-touch-icon.png' %}" rel="apple-touch-icon">
+        <link href="{% static 'images/apple-touch-icon-72x72.png' %}" rel="apple-touch-icon" sizes="72x72">
+        <link href="{% static 'images/apple-touch-icon-114x114.png' %}" rel="apple-touch-icon" sizes="114x114">
+        <link href="{% static 'images/apple-touch-icon-144x144.png' %}" rel="apple-touch-icon" sizes="144x144">
+
+        <!-- Icon fonts -->
+        <script src="https://kit.fontawesome.com/74b77a9efd.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/demo.css' %}">
+
+        <!-- Custom styles for this template -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    </head>
+
+    <body class="{% block body_class %}{% endblock %}">
+        <div class="page-wrapper" id="home">           
+        {% block content %}{% endblock %}
+        {# Global javascript #}
+        <!-- All JavaScript files
+        ================================================== -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{% static 'assets/js/jquery.payform.min.js' %}" charset="utf-8"></script>
+        <script src="{% static 'assets/js/script.js' %}"></script> -->
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,83 @@
+{% extends 'superuser/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="alert alert-success" id="success-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <div class="alert_text"></div>
+        </div>
+        <div class="alert alert-danger" id="danger-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Error! </strong> Check your network connection.
+        </div>
+        <div class="row">
+            <div class='main-title'>
+                <h1>
+                    Review Screenshots:
+                </h1>
+            </div>
+        </div>
+        <div class="row review_screenshots" >
+            {% csrf_token %}
+            {% for task in tasks %}
+                <div class="row pb-md-3 m-0" id="screenshot_{{task.id}}">
+                    <div class="col col-md-2 ">
+                        <label for="task1" class="p-lg-3">Task ID: {{task.id}}</label>
+                        
+                            <div class="pb-md-5 mb-3">
+                                <button id="approve_screenshot_{{task.id}}" class="btn theme-btn-s2 w-100 approve_screenshot" data-task_id="{{task.id}}">Approve</button>
+                            </div>
+                            <div class="pb-md-5 mb-3">
+                                <textarea id="reject_text" class="form-control" placeholder="Write text.."></textarea>
+                            </div>
+                            <div class="pb-md-5 mb-3">
+                                <button  id="reject_screenshot_{{task.id}}" class="btn theme-btn-s2 w-100 reject_screenshot" data-task_id="{{task.id}}">Reject</button>
+                            </div>
+                    </div>
+                    <div class="col col-md-10  mb-3">
+                        <img  class="w-100 img-border" src="{{task.screenshot}}">  
+                    </div>
+                </div>
+            {% endfor %}
+            {% if not tasks %}
+                    <div class="col col-md-12 no-result-found" >
+                        <i class="fa fa-ban" aria-hidden="true"></i> <span>No results found</span>
+                    </div>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+ <!-- Modal -->
+ <div class="modal fade" id="img_modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Task Detail</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row p-lg-4">
+                <div class="col col-sm-8">
+                    <div class="pb-lg-5">
+                        <button id="approve_screenshot" class="btn theme-btn-s2" style="width: 50%;">Approve</button>
+                    </div>
+                    <div class="pb-lg-5">
+                        <textarea id="reject_text" class="form-control" placeholder="Write text.."></textarea>
+                    </div>
+                    <div class="pb-lg-5">
+                        <button  id="reject_screenshot" class="btn theme-btn-s2" style="width: 50%;">Reject</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-image-preview"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

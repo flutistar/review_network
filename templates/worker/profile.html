@@ -1,0 +1,142 @@
+{% extends 'worker/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    {% csrf_token %}
+    <div class="container">
+        <div class="alert alert-success" id="success-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong> The changes have been updated successfully.
+        </div>
+        <div class="alert alert-danger" id="danger-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Error! </strong> Input your bitcoin address.
+        </div>
+        <div class='main-title'>
+            <h1>
+                Profile
+            </h1>
+            <div class="row pb-lg-4 pt-lg-5">
+                <div class="col col-md-4">
+                    <label class="fl-right pt-2">User ID: </label>
+                </div>
+                <div class="col col-md-4">                
+                    <p class="f-15 mt-2">
+                        {{user.username}}
+                    </p>
+                </div>
+            </div>
+            <div class="row pb-lg-4">
+                <div class="col col-md-4">
+                    <label class="fl-right pt-2">Full Name: </label>
+                </div>
+                <div class="col col-md-4">                
+                    <p class="f-15 mt-2">
+                        {{user.first_name}}  {{user.last_name}}
+                    </p>
+                </div>
+            </div>
+            <div class="row pb-lg-4">
+                <div class="col col-md-4">
+                    <label class="fl-right pt-2">Email: </label>
+                </div>
+                <div class="col col-md-4">                
+                    <p class="f-15 mt-2">
+                        {{user.email}}
+                    </p>
+                </div>
+            </div>
+            <div class="row pb-lg-4">
+                <div class="col col-md-4">
+                    <label class="fl-right pt-2">Receive notifications of new available orders: </label>
+                </div>
+                <div class="col col-md-4">                
+                    <p class="f-15 mt-2">
+                        <label class="switch">
+                            <input id="order_notification" type="checkbox" {% if notification %} checked {% endif %}>
+                            <span class="slider round"></span>
+                          </label>
+                    </p>
+                </div>
+            </div>
+            <div class="row pb-lg-4">
+                <div class="col col-md-4">
+                    <label for="pay-method" class="fl-right pt-2">Bitcoin Address: </label>
+                </div>
+                <div class="col col-md-4">                
+                    <input type="text" id="bitcoin_address" class="form-control" {% if bitcoin_address %} value="{{bitcoin_address}}" {% endif %} placeholder="Bitcoin address..." required>
+                </div>
+            </div>
+            <div class="row pb-lg-4">
+                <div class="col col-md-4"></div>
+                <div class="col col-md-4">
+                    <input type="hidden" id="notification" name="notification" value="{{notification}}">
+                    <input type="hidden" id="bitcoin" name="bitcoin" value="{{bitcoin_address}}">
+                    <button id="payment_submit_btn" class="btn theme-btn-s2 fl-right">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #424242;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #6334ef;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #6334ef;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+</style>
+{% endblock %}

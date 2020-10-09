@@ -1,0 +1,20 @@
+{% extends 'register/base.html' %}
+{% load static widget_tweaks %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="col col-md-6 col-md-offset-3 p-15">
+            <div class="pt-lg-5" id="signup_success" style="display: none;">
+                <h3>
+                    Welcome to Vamux.com
+                </h3>
+                <p>
+                    We have sent you an email, please confirm your email address to complete registration
+                </p>
+                <a href="/account/login/">Go to Login page</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

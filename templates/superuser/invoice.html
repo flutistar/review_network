@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    {% load mathfilters %}
+<head>
+    <meta charset="utf-8">
+    <title>Invoice</title>
+    <style>
+        {% if paid %}
+            @page {
+                background-image: url('http://{{current_domain}}/static/images/paid.png');
+                margin: 20pt;
+            }
+        {% endif %}
+    tr{
+        padding-top:  5px;
+        /* padding-bottom:  5px; */
+    }
+    td{
+        margin-right: 10px;
+    }
+    .invoice-box {
+        margin-left: 20px;
+        margin-top: 50px;
+        margin-right: 20px;
+        text-align: right;
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        /* text-align: left; */
+    }
+    .invoice-box table td {
+        vertical-align: bottom;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+        padding-top:  5px;
+        /* padding-bottom:  5px; */
+        text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+        /* padding-bottom: 20px; */
+    }
+
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+
+    /* .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    } */
+
+    .invoice-box table tr.heading td {
+        vertical-align: middle !important;
+        padding-top:  5px;
+        padding-bottom: 1px;
+        background-color: #6334EF;
+        border-right: 4px solid #fff;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td{
+        padding-top:  5px;
+        /* padding-bottom:  5px; */
+        
+    }
+    .invoice-box table tr.item.first td{
+        border-bottom: 1px solid #eee;
+    }
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    .paynow{
+        text-decoration: none;
+        color: #fff;
+        font-size: 25px;
+        text-align: center;
+    }
+    .invoice-box table tr.total td:nth-child(2) {
+        padding-top:  5px;
+        /* padding-bottom:  5px; */
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /** RTL **/
+    .rtl {
+        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+
+    .rtl table {
+        text-align: right;
+    }
+
+    .rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
+    {% if not paid %}
+        .paynow-container{
+            padding-bottom: 2px;
+            background-color: #6334EF;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+        }
+    {% endif %}
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="http://{{current_domain}}/static/images/logo.png" style="width:100%; max-width:300px;">
+                            </td>
+                            <td>
+                                Invoice #: {{invoice_id}}<br>
+                                Created: {{created_date}}<br>
+                                Due: {{created_date}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="4">
+                    <table>
+                        <tr class="heading">
+                            <td>
+                                FROM
+                            </td>
+                            
+                            <td>
+                                BILLING TO
+                            </td>
+                        </tr>
+                        <tr style="padding-bottom: 40px;">
+                            <td>
+                                {{site_name}}<br>
+                                <!-- {{contact_email}} -->
+                            </td>
+                            
+                            <td>
+                                {{buyer_company_name}}<br>
+                                {{buyer_email}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+           
+            <tr class="heading">
+                <td> DESCRIPTION </td>
+                <td> UNIT PRICE </td>
+                <td> QUANTITY </td>
+                <td> AMOUNT </td>
+            </tr>
+            
+            <tr class="item first">
+                <td> {{platform}} Reviews </td>
+                <td> ${{review_cost|floatformat:2}} </td>
+                <td> {{ review_quantity }} </td>
+                <td> ${{ review_total|floatformat:2 }} </td>
+            </tr>
+            <tr class="item first">
+                <td> Cost of product </td>
+                <td> ${{product_cost|floatformat:2}} </td>
+                <td> {{ review_quantity }} </td>
+                <td> ${{ product_total|floatformat:2 }} </td>
+            </tr>
+            <tr class="item">
+                <td colspan="3"> Subtotal </td>
+                <td> ${{ total|floatformat:2 }} </td>
+            </tr>
+            <tr class="item">
+                <td colspan="3"> Tax </td>
+                <td> $0.00 </td>
+            </tr>
+            <tr class="item last">
+                <td colspan="3"> Paid Amount </td>
+                {% if paid %}
+                    <td> ${{ total|floatformat:2 }} </td>
+                {% else %}
+                    <td> $0.00 </td>
+                {% endif %}                
+            </tr>
+            <tr class="total">
+                <td colspan="3">Due Amount</td>
+                {% if paid %}
+                    <td>$0.00</td>
+                {% else %}
+                    <td> ${{ total|floatformat:2 }} </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td class="paynow-container">
+                    {% if not paid %}
+                        <a class="paynow" href="http://{{current_domain}}/payout/checkout/?order_id={{invoice_id}}">Pay Now!</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

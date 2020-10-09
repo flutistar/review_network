@@ -1,0 +1,55 @@
+{% extends 'register/base.html' %}
+{% load static widget_tweaks %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="col col-md-6 col-md-offset-3 register-form">
+            <div class="p-15">
+                <div class='main-title'>
+                    <h1>
+                        Log In 
+                    </h1>
+                </div>
+                <div class="box">
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            <a class="close" href="#" data-dismiss="alert">×</a>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <form class="form pt-lg-5" id="login_form" action="{% url 'login' %}" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="row pt-md-4">
+                                <div class="col col-sm-4">
+                                    {{field.label_tag}}
+                                </div>
+                                <div class="col col-sm-8">
+                                    {{field|attr:"class:form-control"}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                            </div>
+                            <div class="col col-sm-8 submit-btn">
+                                <button class="btn theme-btn-s2" style="width: 100%;" id="order_submit">Login</button>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                            </div>
+                            <div class="col col-sm-8">
+							    <span><a href="{% url 'password_reset' %}">Forget password?</a>/<a href="/account/register">Sign Up Here</a></span>
+                            </div>
+                        </div>                        
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

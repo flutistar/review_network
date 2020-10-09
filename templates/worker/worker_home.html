@@ -1,0 +1,61 @@
+{% extends 'worker/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        {% if not orders and not notification %}
+            <ul id="message_container">
+                <div class="alert alert-warning" >
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    No tasks currently available. Please check back later for new available tasks or <a href="/profile/" style="text-decoration: underline;">turn on email notifications.</a>
+                </div>
+            </ul>
+        {% endif %}
+        {% if messages %}
+            <ul id="message_container">
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" >
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class='main-title'>
+            <h1>
+                Available Tasks
+            </h1>
+        </div>
+        <table class="table table-striped table-responsive-lg">
+            <thead>
+                <tr>
+                <th scope="col"> Order ID </th>
+                <th scope="col"> Price </th>
+                <th scope="col"> Earnings </th>
+                <th scope="col"> Done </th>
+                <th scope="col"> Platform </th>
+                <th scope="col">  </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{order.id}}</th>
+                        <td>${{order.product_cost|floatformat:2}}</td>
+                        <td>${{order.earning|floatformat:2}}</td>
+                        <td>{{order.done}}</td>
+                        <td><a href="https://www.{{order.platform}}{{order.platform_country}}/">{{order.platform}}</a></td>
+                        <td><a class="btn theme-btn-s2 table-claim-btn" href ="/claim_task?order_id={{order.id}}">CLAIM</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not orders %}
+            <div class="col col-md-12 no-result-found" >
+                <i class="fa fa-ban" aria-hidden="true"></i> <span>No results found</span>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

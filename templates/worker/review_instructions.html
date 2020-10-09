@@ -1,0 +1,40 @@
+{% extends 'worker/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="alert alert-warning" id="warning-alert" >
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Warning! </strong> Do not review until the package has been delivered. Early reviews get deleted or ghosted by Amazon and will result in account termination.
+        </div>
+        <div class="row">
+            <div class='main-title'>
+                <h1>
+                    Upload Review Proof:
+                </h1>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <form action="{% url 'upload_review_screenshot' %}" method="post" class="image-upload-form" enctype="multipart/form-data" style="display: flex;">
+                    {% csrf_token %}
+                    <input type='hidden' name='task' value="{% if task %}{{task}}{% endif %}">
+                    <input id="id_image" type="file" class="col-md-6 p-lg-2" name="screenshot">
+                    <label for="screenshot" class="image-upload-label main-color m-0"><i class="fa fa-upload" aria-hidden="true"></i> <span>Choose a file&hellip;</span></label> 
+                    <button type="submit" id="image-upload-btn" class="btn theme-btn-s2"  disabled>Upload Screenshot Proof</button>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="row t-p-30">
+            <div class="col-md-12 image-preview" id="image_preview" style="height: 500px;">
+                <img src="" alt="Preview screenshot" class="image-preview__image" ></img>
+                <span class="image-preview__text" style="min-height: 500px;">Image Preview</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

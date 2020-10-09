@@ -1,0 +1,48 @@
+{% extends 'superuser/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class='main-title'>
+            <h1>
+                Payout Requests
+            </h1>
+        </div>
+        <table class="table table-striped table-responsive-lg">
+            <thead>
+                <tr>
+                <th scope="col"> ID </th>
+                <th scope="col"> User ID </th>
+                <th scope="col"> Amount </th>
+                <th scope="col"> Date Submitted </th>
+                <th scope="col"> Method </th>
+                <th scope="col"> Adress </th>
+                <th scope="col"> Status </th>
+                <th scope="col">  </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payout in payouts %}
+                    <tr>
+                        <th scope="row">{{payout.id}}</th>
+                        <td>{{payout.user}}</td>
+                        <td>${{payout.amount}}</td>
+                        <td>{{payout.date_submitted}}</td>
+                        <td>{{payout.payout_method}}</td>
+                        <td>{{payout.wallet_address}}</td>
+                        <td>{{payout.status}}</td>
+                        <td>{% if payout.status == 'Pending' %}<a href="/manage/mark_as_paid?payout_id={{payout.id}}">MARK AS PAID</a>{% endif %}</td>                    
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not payouts %}
+                    <div class="col col-md-12 no-result-found" >
+                        <i class="fa fa-ban" aria-hidden="true"></i> <span>No results found</span>
+                    </div>
+        {% endif %}
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'register/base.html' %}
+{% load static widget_tweaks %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="col col-md-6 col-md-offset-3 register-form">
+            <div class="p-15">
+                <div class='main-title'>
+                    <h1>
+                        Sign Up
+                    </h1>
+                </div>
+                <div class="">
+                    <form class="form pt-lg-5 sign_up_form" id="registration_form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="row pt-md-4 form-element">
+                                <div class="col col-sm-5">
+                                    *{{field.label_tag}}
+                                </div>
+                                <div class="col col-sm-7">
+                                    {{field|attr:"class:form-control"}}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!-- {{ form.as_p }} -->
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-5">
+                            </div>
+                            <div class="col col-sm-7">
+                                <input type="checkbox" class="checkbox" required>
+							    <span>I Agree To The <a href="https://vamux.com/terms-and-conditions/" target="_blank">Terms & Conditions</a></span>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4 error-message">
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-5">
+                            </div>
+                            <div class="col col-sm-7 submit-btn">
+                                <button class="btn theme-btn-s2 buttonload" id="order_submit">
+                                    <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+                                    SignUp
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-5">
+                            </div>
+                            <div class="col col-sm-7">
+							    <span>Already have an account? <a href="/account/login">Login Here</a></span>
+                            </div>
+                        </div>                        
+                    </form>
+                </div>
+                <div class="pt-lg-5" id="signup_success" style="display: none;">
+                    <h3>
+                        Welcome to Vamux.com
+                    </h3>
+                    <p>
+                        We have sent you an email, please confirm your email address to complete registration
+                    </p>
+                    <a href="/account/login/">Go to Login page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

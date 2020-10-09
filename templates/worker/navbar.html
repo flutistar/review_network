@@ -1,0 +1,44 @@
+{% load static %}
+
+<!-- Start header -->
+<header class="site-header">
+
+      <nav class="navigation navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="open-btn">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/dashboard"><img src="{% static 'images/logo.png' %}" alt class="img img-responsive"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-right">
+                <button class="close-navbar"><i class="fa fa-close"></i></button>
+                <ul class="nav navbar-nav">
+                    <li class="{% if page == 'Available Tasks' %}current{% endif %}"><a href="/dashboard">Dashboard</a></li>
+                    <!-- <li class="{% if page == 'worker_instruction' %}current{% endif %}"><a href="/purchase_instructions">Purchase Instructions</a></li> -->
+                    <li class="{% if page == 'Claimed Tasks' %}current{% endif %}"><a href="/tasks">Claimed Tasks</a></li>
+                    <li class="{% if page == 'Payouts' %}current{% endif %}"><a href="/payout">Payouts</a></li>
+                    <!-- <li class="{% if page == 'worker_profile' %}current{% endif %}"><a href="/profile">Profile</a></li> -->
+                    <li class="{% if page == 'Help' %}current{% endif %}"><a href="/help">Help</a></li>
+                    <li class="">
+                        <div class="dropdown">
+                            <button class="dropbtn nav-dropdown-custom">Account</button>
+                            <div class="dropdown-content">
+                                {% if user.is_authenticated %}
+                                <a class=" nav-dropdown-custom"><i class="fa fa-user-circle pr-4"  aria-hidden="true"></i>{{user.username}}</a>
+                                {% endif %}
+                                <a class="nav-dropdown-custom"><i class="fa fa-money pr-4 " aria-hidden="true"></i>${{balance|floatformat:2}}</a>
+                                <a href="/profile" class="nav-dropdown-custom"><i class="fas fa-user-cog pr-4" aria-hidden="true"></i></i>Profile</a>
+                                <a href="/account/logout" class="nav-dropdown-custom"><i class="fa fa-sign-out pr-4" aria-hidden="true"></i>Logout</a>
+                            </div> 
+                          </div>
+                    </li>
+                </ul>
+            </div><!-- end of nav-collapse -->
+        </div><!-- end of container -->
+    </nav>
+</header>
+<!-- end of header -->

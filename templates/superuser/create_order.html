@@ -1,0 +1,105 @@
+{% extends 'superuser/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="alert alert-success" id="success-alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success! </strong> Create order successfully
+        </div>
+        <div class="alert alert-danger" id="danger-alert" style="display: none;">
+        </div>
+        <div class='main-title'>
+            <h1> 
+                Create Order
+            </h1>
+            <div class="col col-md-6 ">
+                <div class="box">
+                    <form class="form pt-lg-5" id="order_form">
+                        {% csrf_token %}
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="platform">Platform:</label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <select class="form-control" name="platform" id="platform">
+                                    <option>Amazon</option>
+                                    <option>Yelp</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="platform">Product ID:</label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" class="form-control" name="product_id" placeholder="Product ID.." id="product_id" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="buyer_email">Buyer Email:</label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="email" class="form-control" name="buyer_email" placeholder="Buyer email.." id="buyer_email" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="buyer_company">Buyer Company</label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" class="form-control" name="buyer_company" placeholder="Buyer Company.." id="buyer_company" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="quantity">Quantity of Reviews: </label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" class="form-control" name="quantity" placeholder="Quantity of Reviews.." id="quantity" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="earning">Earnings per Review: </label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" value="10" class="form-control" name="earning" placeholder="Earnings per Review.." id="earning" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="cost">Cost of Product: </label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" class="form-control" name="cost" placeholder="Cost of Product.." id="cost" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                                <label for="days_to_complete">Days to Complete</label>
+                            </div>
+                            <div class="col col-sm-6">
+                                <input type="text" value="10" class="form-control" name="days_to_complete" placeholder="Days to Complete.." id="days_to_complete" required>
+                            </div>
+                        </div>
+                        <div class="row pt-md-4">
+                            <div class="col col-sm-4">
+                            </div>
+                            <div class="col col-sm-6 submit-btn">
+                                <button class="btn theme-btn-s2" style="width: 100%;" id="order_submit">
+                                    <i class="fa fa-spinner fa-spin" style="display: none;"></i>
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

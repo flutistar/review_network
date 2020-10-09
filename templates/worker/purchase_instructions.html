@@ -1,0 +1,45 @@
+{% extends 'worker/base.html' %}
+{% load static %}
+{% block content %}
+<section class="section-padding">
+    <div class="container">
+        <div class="alert alert-warning" id="warning-alert" >
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Warning! </strong> If you do not subumit the proof screenshot of purchase product within 60 minutes, task will be cancelled.
+        </div>
+        <div class="row">
+            <div class='main-title'>
+                <h1>
+                    Purchase This Product:
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 mb-3">
+                <p class="main-color m-0 pt-2"><strong class="pr-md-3">Product link: </strong>  {{product_link}}</p>
+            </div>
+            <div class="col-md-2 image-preview mb-3" id="image_preview">
+                <img src="" alt="Preview screenshot" class="image-preview__image"></img>
+                <span class="image-preview__text">Image Preview</span>
+            </div>
+            <div class="col-md-5 mb-3">
+                <form action="{% url 'upload_product_screenshot' %}" class="image-upload-form" method="post" enctype="multipart/form-data" style="display: flex;">
+                    {% csrf_token %}
+                    <input type='hidden' name='task' value="{% if task %}{{task}}{% endif %}">
+                    <input type="file" id="id_image" name="screenshot">
+                    <label for="screenshot" class="image-upload-label main-color m-0"><i class="fa fa-upload" aria-hidden="true"></i> <span>Choose a file&hellip;</span></label>                    
+                    <button type="submit" id="image-upload-btn" class="btn theme-btn-s2"  disabled>Upload Purchase Proof</button>
+                    
+                </form>
+            </div>
+        </div>
+        <div class="row t-p-30">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/SFrklsak9bU?rel=0&amp;showinfo=0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+             </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

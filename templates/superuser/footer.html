@@ -1,0 +1,26 @@
+{% load static %}
+
+<!-- start footer -->
+<footer id="blog">
+        <div class="widget about-widget">
+            
+            <ul class="social-links">
+                <!-- <li><a href="" title="LinkeIn"><i class="fab fa-linkedin "></i></a></li> -->
+                <li><a href="https://www.facebook.com/Vamux-101821758132443/" title="Facebook"><i class="fab fa-facebook-square "></i></a></li>
+                <li><a href="" title="Twitter"><i class="fab fa-twitter "></i></a></li>
+                <!-- <li><a href="" title="Reddit"><i class="fab fa-reddit "></i></a></li> -->
+                <!-- <li><a href="" title="YouTube"><i class="fab fa-youtube"></i></a></li> -->
+                <!-- <li><a href="" title="Telegram"><i class="fab fa-telegram "></i></a></li> -->
+            </ul>
+        </div>
+        <div></div>
+            <ul class = "social-links">
+                <li class="{% if page == 'create' %}current{% endif %}"><a href="/manage">Create Order</a></li>
+                    <li class="{% if page == 'purchase' %}current{% endif %}"><a href="/manage/purchase">Purchase Screenshots</a></li>
+                    <li class="{% if page == 'review' %}current{% endif %}"><a href="/manage/review">Review Screenshots</a></li>
+                    <li class="{% if page == 'payout' %}current{% endif %}"><a href="/manage/payout_requests">Payout Requests</a></li>
+            </ul>
+            <p class="copyright">2020&copy;{{company_name}}  &nbsp;  All Rights Reserved</p>
+        </div>
+</footer>
+<!-- end footer -->
